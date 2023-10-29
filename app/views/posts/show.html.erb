@@ -9,11 +9,16 @@
   <strong>Content:</strong>
   <%= @post.content %>
 </p>
-
 <p>
-  <strong>Topic:</strong>
-  <%= @post.topic.title %>
+<strong>Tags:</strong>
+<% if @post.tags.any? %>
+  <% @post.tags.each do |tag| %>
+    <%= tag.name %>
+  <% end %>
+<% else %>
+  No tags available for this post.
+<% end %>
 </p>
-
 <%= link_to 'Edit', edit_topic_post_path(@topic,@post) %> |
+<%= link_to 'show comments',topic_post_comments_path(@topic,@post) %> |
 <%= link_to 'Back', topic_posts_path(@topic) %>

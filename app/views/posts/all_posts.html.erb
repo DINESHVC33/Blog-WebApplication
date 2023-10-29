@@ -1,0 +1,26 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Posts</h1>
+
+<table>
+  <thead>
+  <tr>
+    <th>Title</th>
+    <th>Content</th>
+    <th>Topic</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @posts.each do |post| %>
+    <tr>
+      <td><%= post.title %></td>
+      <td><%= post.content %></td>
+      <td><%= post.topic.title %></td>
+       </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<br>
+

@@ -1,0 +1,12 @@
+<div class="text">
+  <div class="container mt-4">
+    <h1>Posts with Tag: <%= @tag.name %></h1>
+    <ul class="list-group">
+      <% @posts.each do |post| %>
+        <li class="list-group-item">
+          <%= link_to post.title, topic_post_path(post.topic, post) %>
+        </li>
+      <% end %>
+    </ul>
+    </div> <br><br>
+  <%= link_to "Back to tags",tags_path,class: "btn btn-secondary"  %>

@@ -1,11 +1,13 @@
 class PostsController < ApplicationController
   before_action :set_post, only: %i[ show edit update destroy ]
-  before_action :set_topic
+  before_action :set_topic , except: :all_posts
   # GET /posts or /posts.json
   def index
     @posts = @topic.posts.all
   end
-
+  def all_posts
+    @posts=Post.includes(:topic).all
+  end
   # GET /posts/1 or /posts/1.json
   def show
   end
@@ -49,6 +51,7 @@ class PostsController < ApplicationController
 
   # DELETE /posts/1 or /posts/1.json
   def destroy
+    @post.tags.clear
     @post.destroy
 
     respond_to do |format|
@@ -69,6 +72,6 @@ class PostsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def post_params
-      params.require(:post).permit(:title, :content, :topic_id)
+      params.require(:post).permit(:title, :content, :topic_id , tag_ids: [])
     end
 end

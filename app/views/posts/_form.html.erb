@@ -1,10 +1,10 @@
 <%= form_with(model:  [@topic, @post]) do |form| %>
-  <% if post.errors.any? %>
+  <% if @post.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
 
       <ul>
-        <% post.errors.each do |error| %>
+        <% @post.errors.each do |error| %>
           <li><%= error.full_message %></li>
         <% end %>
       </ul>
@@ -20,7 +20,15 @@
     <%= form.label :content %>
     <%= form.text_area :content %>
   </div>
-
+  <div>
+    <%= form.label :tag_ids, "Tags :" %>
+    <% Tag.all.each do |tag| %>
+      <%= form.check_box :tag_ids, { multiple: true, class: "form-check-input" }, tag.id, nil %>
+      <%= label_tag "post_tag_ids_#{tag.id}", tag.name, class: "form-check-label" %>
+    <% end %>
+  </div>
+  <br>
+  <%= link_to "Create new tags", new_tag_path %>
 
   <div class="actions">
     <%= form.submit %>
