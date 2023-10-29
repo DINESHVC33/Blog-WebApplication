@@ -4,6 +4,6 @@
   <strong>Title:</strong>
   <%= @topic.title %>
 </p>
-
+<%= link_to 'Posts', topic_posts_path(@topic) %> |
 <%= link_to 'Edit', edit_topic_path(@topic) %> |
 <%= link_to 'Back', topics_path %>
