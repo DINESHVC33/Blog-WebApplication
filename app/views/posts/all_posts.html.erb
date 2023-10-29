@@ -7,20 +7,18 @@
   <tr>
     <th>Title</th>
     <th>Content</th>
-    <th>Topic</th>
   </tr>
   </thead>
 
   <tbody>
   <% @posts.each do |post| %>
     <tr>
-      <td><%= post.title %></td>
+      <td><%= "#{post.title} ( #{post.topic.title})" %></td>
       <td><%= post.content %></td>
-      <td><%= post.topic.title %></td>
        </tr>
   <% end %>
   </tbody>
 </table>
-
+<%= paginate @posts %>
 <br>
 
