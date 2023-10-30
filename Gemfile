@@ -12,6 +12,8 @@ end
 
 gem 'kaminari'
 
+gem 'devise'
+
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3', '~> 1.4'
 # Use Puma as the app server

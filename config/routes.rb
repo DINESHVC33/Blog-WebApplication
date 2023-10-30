@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  devise_for :users
   get'/posts' , to: 'posts#all_posts' , as: 'all_posts'
   resources :topics do
     resources :posts do
