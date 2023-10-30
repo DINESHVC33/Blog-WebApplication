@@ -1,24 +1,26 @@
-<h1>All Tags</h1>
-<h6 style="color: green"><%= params[:notice] %></h6>
-|  <%= link_to "Create New Tag", new_tag_path %>  |
-<br>
-<br>
-<table class="table table-hover">
-  <thead>
-  <tr>
-    <th>Tag</th>
-    <th>Edit</th>
-    <th>Delete</th>
-  </tr>
-  </thead>
-  <tbody>
-  <% @tags.each do |tag| %>
-    <tr>
-      <td><strong><%= link_to tag.name,  posts_tag_path(tag) %></strong></td>
-      <td><%= link_to "Edit", edit_tag_path(tag) %></td>
-      <td><%= button_to "Delete", tag, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-    </tr>
-  <% end %>
-  </tbody>
-</table>
+<div class="container">
+  <h1>All Tags</h1>
+  <h6 class="text-success"><%= params[:notice] %></h6>
+  <div class="mb-3">
+    <%= link_to "Create New Tag", new_tag_path, class: "btn btn-outline-primary" %>
+  </div>
 
+  <table class="table table-hover">
+    <thead>
+    <tr>
+      <th>Tag</th>
+      <th>Edit</th>
+      <th>Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @tags.each do |tag| %>
+      <tr>
+        <td><strong><%= link_to tag.name,  posts_tag_path(tag) %></strong></td>
+        <td><%= link_to "Edit", edit_tag_path(tag), class: "btn btn-outline-secondary btn-sm" %></td>
+        <td><%= button_to "Delete", tag, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-outline-danger btn-sm" %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>

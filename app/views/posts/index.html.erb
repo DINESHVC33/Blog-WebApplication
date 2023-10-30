@@ -1,9 +1,10 @@
-<p id="notice"><%= notice %></p>
+<div class="container">
+  <%= notice.present? ? "<h6 id='notice' class='alert alert-info'>#{notice}</h6>".html_safe : '' %>
 
-<h1>Posts</h1>
+  <h1>Posts</h1>
 
-<table>
-  <thead>
+  <table class="table">
+    <thead>
     <tr>
       <th>Title</th>
       <th>Content</th>
@@ -11,11 +12,11 @@
       <th>Status</th>
       <th>Avg rating</th>
       <th>Comments count</th>
-      <th colspan="3">Actions</th>
+      <th class="text-center" colspan="3">Actions</th>
     </tr>
-  </thead>
+    </thead>
 
-  <tbody>
+    <tbody>
     <% @posts.each do |post| %>
       <tr>
         <td><%= post.title %></td>
@@ -24,16 +25,16 @@
         <td><%= post.marked_as_read?(current_user) ? 'Read' : 'Unread' %></td>
         <td><%= post.rating_average.present? ? " #{post.rating_average.round(1)} Ratings" : 'N/A' %></td>
         <td><%= post.comments_count %></td>
-        <td><%= link_to 'Show',topic_post_path(@topic,post) %></td>
-        <td><%= link_to 'Edit', edit_topic_post_path(@topic,post) if can?(:edit, post)&.present? %></td>
-        <td><%= button_to 'Destroy',topic_post_path(@topic,post)  , method: :delete, data: { confirm: 'Are you sure?' } %></td>
-
+        <td><%= link_to 'Show', topic_post_path(@topic, post), class: 'btn btn-outline-primary btn-sm' %></td>
+        <td><%= link_to 'Edit', edit_topic_post_path(@topic, post), class: 'btn btn-outline-secondary btn-sm' if can?(:edit, post)&.present? %></td>
+        <td><%= button_to 'Destroy', topic_post_path(@topic, post), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-outline-danger btn-sm' %></td>
       </tr>
     <% end %>
-  </tbody>
-</table>
+    </tbody>
+  </table>
 
-<br>
+  <br>
 
-<%= link_to 'New Post', new_topic_post_path(@topic)%>
-<%= link_to 'Back', topics_path(@topic)%>
+  <%= link_to 'New Post', new_topic_post_path(@topic), class: 'btn btn-outline-success' %>
+  <%= link_to 'Back', topics_path(@topic), class: 'btn btn-outline-secondary' %>
+</div>

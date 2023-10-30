@@ -1,9 +1,13 @@
-<p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Title:</strong>
-  <%= @topic.title %>
-</p>
-<%= link_to 'Posts', topic_posts_path(@topic) %> |
-<%= link_to 'Edit', edit_topic_path(@topic) %> |
-<%= link_to 'Back', topics_path %>
+<div class="container">
+  <%= notice.present? ? "<h6 id='notice' class='alert alert-info'>#{notice}</h6>".html_safe : '' %>
+<br>
+  <h5>
+    <strong>Title:</strong>
+    <%= @topic.title %>
+  </h5>
+<br>
+  <%= link_to 'Posts', topic_posts_path(@topic), class: "btn btn-outline-primary" %> |
+  <%= link_to 'Edit', edit_topic_path(@topic), class: "btn btn-outline-warning" %> |
+  <%= link_to 'Back', topics_path, class: "btn btn-outline-secondary" %>
+</div>

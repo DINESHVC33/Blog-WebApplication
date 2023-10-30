@@ -1,39 +1,44 @@
-<%= form_with(model:  [@topic, @post]) do |form| %>
+<%= form_with(model: [@topic, @post]) do |form| %>
   <% if @post.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
+    <div id="error_explanation" class="alert alert-danger">
+      <h2><%= pluralize(@post.errors.count, "error") %> prohibited this post from being saved:</h2>
 
       <ul>
-        <% @post.errors.each do |error| %>
-          <li><%= error.full_message %></li>
+        <% @post.errors.full_messages.each do |error| %>
+          <li><%= error %></li>
         <% end %>
       </ul>
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :title %>
-    <%= form.text_field :title %>
+  <div class="mb-3">
+    <%= form.label :title, class: "form-label" %>
+    <%= form.text_field :title, class: "form-control" %>
   </div>
 
-  <div class="field">
-    <%= form.label :content %>
-    <%= form.text_area :content %>
+  <div class="mb-3">
+    <%= form.label :content, class: "form-label" %>
+    <%= form.text_area :content, class: "form-control" %>
   </div>
 
-  <%=render "image_preview", form: form,post: @post%>
+  <%= render "image_preview", form: form, post: @post %>
 
-  <div>
-    <%= form.label :tag_ids, "Tags :" %>
-    <% Tag.all.each do |tag| %>
-      <%= form.check_box :tag_ids, { multiple: true, class: "form-check-input" }, tag.id, nil %>
-      <%= label_tag "post_tag_ids_#{tag.id}", tag.name, class: "form-check-label" %>
-    <% end %>
+  <div class="mb-3">
+    <%= form.label :tag_ids, "Tags :", class: "form-label" %>
+    <div class="d-flex flex-wrap">
+      <% Tag.all.each do |tag| %>
+        <div class="form-check me-3 mb-2">
+          <%= form.check_box :tag_ids, { multiple: true, class: "form-check-input" }, tag.id, nil %>
+          <%= label_tag "post_tag_ids_#{tag.id}", tag.name, class: "form-check-label ms-2" %>
+        </div>
+      <% end %>
+    </div>
   </div>
-  <br>
-  <%= link_to "Create new tags", new_tag_path %>
+
+  <%= link_to "Create new tags", new_tag_path, class: "btn btn-outline-primary mb-2" %>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit "Save Post", class: "btn btn-success" %>
+    <%= link_to 'Back', topic_posts_path(@topic), class: "btn btn-outline-secondary" %>
   </div>
 <% end %>

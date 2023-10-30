@@ -7,7 +7,7 @@ class CommentsController < ApplicationController
 
   # GET /comments or /comments.json
   def index
-    @comments = @post.comments.all
+    @comments = @post.comments.includes([:user]).all
     @ratings = Comment.joins(:user_comment_ratings).distinct
   end
   def ratings

@@ -1,22 +1,23 @@
-<%= form_with(model: [@topic,@post,@comment]) do |form| %>
-  <% if comment.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(comment.errors.count, "error") %> prohibited this comment from being saved:</h2>
+<%= form_with(model: [@topic, @post, @comment]) do |form| %>
+  <% if @comment.errors.any? %>
+    <div id="error_explanation" class="alert alert-danger">
+      <h2><%= pluralize(@comment.errors.count, "error") %> prohibited this comment from being saved:</h2>
 
       <ul>
-        <% comment.errors.each do |error| %>
-          <li><%= error.full_message %></li>
+        <% @comment.errors.full_messages.each do |error| %>
+          <li><%= error %></li>
         <% end %>
       </ul>
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :content %>
-    <%= form.text_area :content %>
+  <div class="mb-3">
+    <%= form.label :content, class: "form-label" %>
+    <%= form.text_area :content, class: "form-control" %>
   </div>
 
-  <div class="actions">
-    <%= form.submit %>
+  <div class="text-center">
+    <%= form.submit "Submit", class: "btn btn-primary" %>
+    <%= link_to 'Back', topic_post_comments_path(@topic, @post), class: 'btn btn-outline-secondary' %>
   </div>
 <% end %>

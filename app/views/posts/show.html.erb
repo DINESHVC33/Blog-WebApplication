@@ -1,10 +1,11 @@
-<p id="notice"><%= notice %></p>
+<div class="container">
+  <br>
+<%= notice.present? ? "<h6 id='notice' class='alert alert-info'>#{notice}</h6>".html_safe : '' %>
+
 <script>
     $(document).ready(function() {
-        // Check if the user is logged in
         var loggedIn = <%= user_signed_in? %>;
 
-        // Make an AJAX call to mark the post as read if the user is logged in
         if (loggedIn) {
             var csrfToken = $('meta[name=csrf-token]').attr('content');
 
@@ -25,52 +26,59 @@
         }
     });
 </script>
+  <p>
+    <strong>Title:</strong>
+    <%= @post.title %>
+  </p>
 
-<p>
-  <strong>Title:</strong>
-  <%= @post.title %>
-</p>
+  <p>
+    <strong>Content:</strong>
+    <%= @post.content %>
+  </p>
 
-<p>
-  <strong>Content:</strong>
-  <%= @post.content %>
-</p>
-<p><strong>user email : </strong><%= @post.user.present? ? @post.user.email : 'No user id' %></p>
-<p><strong>Status:</strong> <%= @post.marked_as_read?(current_user) ? 'Read' : 'Unread' %></p>
+  <p><strong>User Email:</strong> <%= @post.user.present? ? @post.user.email : 'No User ID' %></p>
 
-<p>
-<strong>Tags:</strong>
-<% if @post.tags.any? %>
-  <% @post.tags.each do |tag| %>
-    <%= tag.name %>
+  <p><strong>Status:</strong> <%= @post.marked_as_read?(current_user) ? 'Read' : 'Unread' %></p>
+
+  <p>
+    <strong>Tags:</strong>
+    <% if @post.tags.any? %>
+      <% @post.tags.each do |tag| %>
+        <%= tag.name %>
+      <% end %>
+    <% else %>
+      No tags available for this post.
+    <% end %>
+  </p>
+
+  <% if @post.image.attached? %>
+    <%= image_tag(@post.image, class: "img-fluid") %>
+  <% else %>
+    <strong>No images added</strong>
   <% end %>
-<% else %>
-  No tags available for this post.
-<% end %>
-</p>
-<% if @post.image.attached? %>
-  <%= image_tag(@post.image, class: "image") %>
-<%else %>
-  <strong>No images added</strong>
-<% end %>
-<br><br>
-<p><strong>Ratings:</strong>
-<ul>
-  <% @ratings.each do |star, count| %>
-    <li><%= star %> Star Ratings: <%= count %></li>
-  <% end %>
-</ul>
 
-<%= form_for([@topic, @post, @post.ratings.build]) do |f| %>
-  <h6><%= f.label :value %></h6>
-  <%= f.radio_button :value, 1 %> 1 Star
-  <%= f.radio_button :value, 2 %> 2 Stars
-  <%= f.radio_button :value, 3 %> 3 Stars
-  <%= f.radio_button :value, 4 %> 4 Stars
-  <%= f.radio_button :value, 5 %> 5 Stars
-  <%= f.submit "Submit Rating" %>
-<% end %>
-<br></p>
-<%= link_to 'Edit', edit_topic_post_path(@topic, @post) if can?(:edit, @post)&.present? %>|
-<%= link_to 'show comments',topic_post_comments_path(@topic,@post) %> |
-<%= link_to 'Back', topic_posts_path(@topic) %>
+  <br><br>
+
+  <p><strong>Ratings:</strong></p>
+  <ul>
+    <% @ratings.each do |star, count| %>
+      <li><%= star %> Star Ratings: <%= count %></li>
+    <% end %>
+  </ul>
+
+  <%= form_for([@topic, @post, @post.ratings.build]) do |f| %>
+    <h6><%= f.label :value %></h6>
+    <%= f.radio_button :value, 1 %> 1 Star
+    <%= f.radio_button :value, 2 %> 2 Stars
+    <%= f.radio_button :value, 3 %> 3 Stars
+    <%= f.radio_button :value, 4 %> 4 Stars
+    <%= f.radio_button :value, 5 %> 5 Stars
+    <%= f.submit "Submit Rating", class: "btn btn-primary" %>
+  <% end %>
+
+  <br>
+
+  <%= link_to 'Edit', edit_topic_post_path(@topic, @post), class: "btn btn-outline-warning " if can?(:edit, @post)&.present? %>
+  <%= link_to 'Show Comments', topic_post_comments_path(@topic, @post), class: "btn btn-outline-primary" %>
+  <%= link_to 'Back', topic_posts_path(@topic), class: 'btn btn-outline-secondary' %>
+</div>

@@ -1,38 +1,52 @@
-<p id="notice"><%= notice %></p>
+<div class="container">
+  <%= notice.present? ? "<h6 id='notice' class='alert alert-info'>#{notice}</h6>".html_safe : '' %>
 
-<h1>Posts</h1>
-<%= form_tag(all_posts_path, method: :get) do %>
-  <%= label_tag 'From Date:' %>
-  <%= date_field_tag 'from_date', params[:from_date] %>
-  <%= label_tag 'To Date:' %>
-  <%= date_field_tag 'to_date', params[:to_date] %>
-  <%= submit_tag 'Show Details' %>
-<% end %>
-<table>
-  <thead>
-  <tr>
-    <th>Title(topic)</th>
-    <th>Content</th>
-    <th>Status</th>
-    <th>Created at</th>
-    <th>Avg rating</th>
-    <th>Comments count</th>
-  </tr>
-  </thead>
+  <h1>Posts</h1>
 
-  <tbody>
-  <% @posts.each do |post| %>
-    <tr>
-      <td><%= "#{post.title} ( #{post.topic.title})" %></td>
-      <td><%= post.content %></td>
-      <td><%= post.marked_as_read?(current_user) ? 'Read' : 'Unread' %></td>
-      <td><%= post.created_at.to_date %></td>
-      <td><%= post.rating_average.present? ? " #{post.rating_average.round(1)} Ratings" : 'N/A' %></td>
-      <td><%= post.comments_count %></td>
-       </tr>
+  <%= form_tag(all_posts_path, method: :get) do %>
+    <div class="row mb-3">
+      <div class="col">
+        <%= label_tag 'From Date:' %>
+        <%= date_field_tag 'from_date', params[:from_date], class: 'form-control' %>
+      </div>
+      <div class="col">
+        <%= label_tag 'To Date:' %>
+        <%= date_field_tag 'to_date', params[:to_date], class: 'form-control ' %>
+      </div>
+      <div class="col">
+        <%= submit_tag 'Show Details', class: 'btn btn-primary mb-3' %>
+      </div>
+    </div>
   <% end %>
-  </tbody>
-</table>
-<%= paginate @posts %>
-<br>
 
+  <table class="table">
+    <thead>
+    <tr>
+      <th>Title (Topic)</th>
+      <th>Content</th>
+      <th>Status</th>
+      <th>Created at</th>
+      <th>Avg rating</th>
+      <th>Comments count</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <% @posts.each do |post| %>
+      <tr>
+        <td><%= "#{post.title} (#{post.topic.title})" %></td>
+        <td><%= post.content %></td>
+        <td><%= post.marked_as_read?(current_user) ? 'Read' : 'Unread' %></td>
+        <td><%= post.created_at.to_date %></td>
+        <td><%= post.rating_average.present? ? "#{post.rating_average.round(1)} Ratings" : 'N/A' %></td>
+        <td><%= post.comments_count %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+
+  <%= paginate @posts %>
+
+
+  <br>
+</div>
