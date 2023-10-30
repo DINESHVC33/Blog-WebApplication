@@ -6,7 +6,7 @@ class PostsController < ApplicationController
   load_and_authorize_resource
   # GET /posts or /posts.json
   def index
-    @posts = @topic.posts.includes([:ratings]).all
+    @posts = @topic.posts.all
   end
   def all_posts
     from_date = params[:from_date].presence || 1.day.ago.to_date
@@ -14,7 +14,7 @@ class PostsController < ApplicationController
     from_date = Date.parse(from_date.to_s)
     to_date = Date.parse(to_date.to_s)
 
-    @posts=Post.includes([:topic],[:ratings])
+    @posts=Post.includes([:topic])
                .filter_by_date(from_date, to_date).
       page(params[:page]).per(3)
   end

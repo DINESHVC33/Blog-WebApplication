@@ -27,8 +27,8 @@
       <td><%= post.content %></td>
       <td><%= post.marked_as_read?(current_user) ? 'Read' : 'Unread' %></td>
       <td><%= post.created_at.to_date %></td>
-      <td><%= post.ratings.any? ? "#{post.ratings.average(:value).round(2)}" : "Nil" %></td>
-      <td><%= post.comments.count %></td>
+      <td><%= post.rating_average.present? ? " #{post.rating_average.round(1)} Ratings" : 'N/A' %></td>
+      <td><%= post.comments_count %></td>
        </tr>
   <% end %>
   </tbody>
