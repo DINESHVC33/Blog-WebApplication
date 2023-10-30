@@ -19,6 +19,23 @@
   No tags available for this post.
 <% end %>
 </p>
+<p><strong>Ratings:</strong>
+<ul>
+  <% @ratings.each do |star, count| %>
+    <li><%= star %> Star Ratings: <%= count %></li>
+  <% end %>
+</ul>
+
+<%= form_for([@topic, @post, @post.ratings.build]) do |f| %>
+  <%= f.label :value %>
+  <%= f.radio_button :value, 1 %> 1 Star
+  <%= f.radio_button :value, 2 %> 2 Stars
+  <%= f.radio_button :value, 3 %> 3 Stars
+  <%= f.radio_button :value, 4 %> 4 Stars
+  <%= f.radio_button :value, 5 %> 5 Stars
+  <%= f.submit "Submit Rating" %>
+<% end %>
+<br></p>
 <%= link_to 'Edit', edit_topic_post_path(@topic,@post) %> |
 <%= link_to 'show comments',topic_post_comments_path(@topic,@post) %> |
 <%= link_to 'Back', topic_posts_path(@topic) %>
