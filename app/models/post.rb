@@ -10,7 +10,7 @@ class Post < ApplicationRecord
   has_many :posts_users_read_statuses
   has_many :readers, through: :posts_users_read_statuses, source: :user
   def marked_as_read?(user)
-    readers.include?(user)
+    readers.includes([:readers]).include?(user)
   end
   def mark_as_read(user)
     posts_users_read_statuses.find_or_create_by(user: user).update(read: true)
