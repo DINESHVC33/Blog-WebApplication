@@ -9,7 +9,14 @@ class PostsController < ApplicationController
     @posts = @topic.posts.includes([:ratings]).all
   end
   def all_posts
-    @posts=Post.includes([:topic],[:ratings]).page(params[:page]).per(3)
+    from_date = params[:from_date].presence || 1.day.ago.to_date
+    to_date = params[:to_date].presence || Date.today
+    from_date = Date.parse(from_date.to_s)
+    to_date = Date.parse(to_date.to_s)
+
+    @posts=Post.includes([:topic],[:ratings])
+               .filter_by_date(from_date, to_date).
+      page(params[:page]).per(3)
   end
   # GET /posts/1 or /posts/1.json
   def show

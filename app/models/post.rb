@@ -15,4 +15,7 @@ class Post < ApplicationRecord
   def mark_as_read(user)
     posts_users_read_statuses.find_or_create_by(user: user).update(read: true)
   end
+  scope :filter_by_date, ->(from_date, to_date) {
+    where(created_at: from_date.beginning_of_day..to_date.end_of_day)
+  }
 end

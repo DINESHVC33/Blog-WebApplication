@@ -1,13 +1,20 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Posts</h1>
-
+<%= form_tag(all_posts_path, method: :get) do %>
+  <%= label_tag 'From Date:' %>
+  <%= date_field_tag 'from_date', params[:from_date] %>
+  <%= label_tag 'To Date:' %>
+  <%= date_field_tag 'to_date', params[:to_date] %>
+  <%= submit_tag 'Show Details' %>
+<% end %>
 <table>
   <thead>
   <tr>
     <th>Title(topic)</th>
     <th>Content</th>
     <th>Status</th>
+    <th>Created at</th>
     <th>Avg rating</th>
     <th>Comments count</th>
   </tr>
@@ -19,6 +26,7 @@
       <td><%= "#{post.title} ( #{post.topic.title})" %></td>
       <td><%= post.content %></td>
       <td><%= post.marked_as_read?(current_user) ? 'Read' : 'Unread' %></td>
+      <td><%= post.created_at.to_date %></td>
       <td><%= post.ratings.any? ? "#{post.ratings.average(:value).round(2)}" : "Nil" %></td>
       <td><%= post.comments.count %></td>
        </tr>
