@@ -96,6 +96,7 @@
     <orderEntry type="library" scope="PROVIDED" name="sprockets (v4.2.1, ruby-3.2.2-p53) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="sprockets-rails (v3.4.2, ruby-3.2.2-p53) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="sqlite3 (v1.6.7, ruby-3.2.2-p53) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="strong_migrations (v0.8.0, ruby-3.2.2-p53) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="thor (v1.3.0, ruby-3.2.2-p53) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="tilt (v2.3.0, ruby-3.2.2-p53) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="timeout (v0.4.0, ruby-3.2.2-p53) [gem]" level="application" />
@@ -166,6 +167,7 @@
         <option value="scaffold_controller" />
         <option value="scss:assets" />
         <option value="scss:scaffold" />
+        <option value="strong_migrations:install" />
         <option value="system_test" />
         <option value="task" />
         <option value="test_unit:channel" />
@@ -234,6 +236,7 @@
         <option value="scaffold_controller" />
         <option value="scss:assets" />
         <option value="scss:scaffold" />
+        <option value="strong_migrations:install" />
         <option value="system_test" />
         <option value="task" />
         <option value="test_unit:channel" />
@@ -536,6 +539,11 @@
                   <RakeTaskImpl description="" fullCommand="railties:install:migrations" id="migrations" />
                 </subtasks>
               </RakeTaskImpl>
+            </subtasks>
+          </RakeTaskImpl>
+          <RakeTaskImpl id="strong_migrations">
+            <subtasks>
+              <RakeTaskImpl description="" fullCommand="strong_migrations:alphabetize_columns" id="alphabetize_columns" />
             </subtasks>
           </RakeTaskImpl>
           <RakeTaskImpl description="" fullCommand="tmp" id="tmp" />
