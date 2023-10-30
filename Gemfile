@@ -20,6 +20,10 @@ gem 'strong_migrations'
 
 gem 'bullet', group: 'development'
 
+group :development do
+  gem 'letter_opener'
+end
+
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3', '~> 1.4'
 # Use Puma as the app server

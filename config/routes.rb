@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
 
-  devise_for :users
+  devise_for :users, controllers: {
+    registrations: 'users/registrations'
+  }
+  resources :users, only: [:show]
   root  to:'home#index'
   get'/posts' , to: 'posts#all_posts' , as: 'all_posts'
   resources :topics do
