@@ -5,4 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   has_many :posts
   has_many :comments
+  has_many :posts_users_read_statuses
+  has_many :read_posts, -> { where("posts_users_read_statuses.read": true) }, through: :posts_users_read_statuses, source: :post, class_name: "Post"
+  has_many :unread_posts, -> { where("posts_users_read_statuses.read": false) }, through: :posts_users_read_statuses, source: :post, class_name: "Post"
 end

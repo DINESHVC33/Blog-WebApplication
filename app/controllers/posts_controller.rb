@@ -15,7 +15,13 @@ class PostsController < ApplicationController
   def show
     @ratings = @post.ratings.group(:value).count
   end
-
+  def mark_as_read
+    @post = Post.find(params[:id])
+    @post.mark_as_read(current_user) if user_signed_in?
+    respond_to do |format|
+      format.js
+    end
+  end
   # GET /posts/new
   def new
     @post = @topic.posts.new

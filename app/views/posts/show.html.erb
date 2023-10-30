@@ -1,4 +1,30 @@
 <p id="notice"><%= notice %></p>
+<script>
+    $(document).ready(function() {
+        // Check if the user is logged in
+        var loggedIn = <%= user_signed_in? %>;
+
+        // Make an AJAX call to mark the post as read if the user is logged in
+        if (loggedIn) {
+            var csrfToken = $('meta[name=csrf-token]').attr('content');
+
+            $.ajax({
+                url: "/topics/<%= @topic.id %>/posts/<%= @post.id %>/mark_as_read",
+                type: "PATCH",
+                headers: {
+                    'X-CSRF-Token': csrfToken
+                },
+                success: function(response) {
+                    console.log("Post marked as read");
+                    // You can update the UI as needed
+                },
+                error: function(error) {
+                    console.error("Error marking post as read");
+                }
+            });
+        }
+    });
+</script>
 
 <p>
   <strong>Title:</strong>
@@ -10,6 +36,8 @@
   <%= @post.content %>
 </p>
 <p><strong>user email : </strong><%= @post.user.present? ? @post.user.email : 'No user id' %></p>
+<p><strong>Status:</strong> <%= @post.marked_as_read?(current_user) ? 'Read' : 'Unread' %></p>
+
 <p>
 <strong>Tags:</strong>
 <% if @post.tags.any? %>
@@ -25,6 +53,7 @@
 <%else %>
   <strong>No images added</strong>
 <% end %>
+<br><br>
 <p><strong>Ratings:</strong>
 <ul>
   <% @ratings.each do |star, count| %>
@@ -33,7 +62,7 @@
 </ul>
 
 <%= form_for([@topic, @post, @post.ratings.build]) do |f| %>
-  <%= f.label :value %>
+  <h6><%= f.label :value %></h6>
   <%= f.radio_button :value, 1 %> 1 Star
   <%= f.radio_button :value, 2 %> 2 Stars
   <%= f.radio_button :value, 3 %> 3 Stars

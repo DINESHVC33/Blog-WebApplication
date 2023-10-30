@@ -41,6 +41,7 @@ class Ability
       can :update, Comment, user_id: user.id
       can :destroy, Comment, user_id: user.id
 
+      can :mark_as_read, Post
 
     end
   end

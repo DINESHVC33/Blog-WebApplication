@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get'/posts' , to: 'posts#all_posts' , as: 'all_posts'
   resources :topics do
     resources :posts do
+      patch 'mark_as_read', on: :member
       resources :comments
       resources :ratings, only: [:create]
     end

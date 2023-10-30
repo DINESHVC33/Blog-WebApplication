@@ -7,6 +7,7 @@
   <tr>
     <th>Title(topic)</th>
     <th>Content</th>
+    <th>Status</th>
     <th>Avg rating</th>
     <th>Comments count</th>
   </tr>
@@ -17,6 +18,7 @@
     <tr>
       <td><%= "#{post.title} ( #{post.topic.title})" %></td>
       <td><%= post.content %></td>
+      <td><%= post.marked_as_read?(current_user) ? 'Read' : 'Unread' %></td>
       <td><%= post.ratings.any? ? "#{post.ratings.average(:value).round(2)}" : "Nil" %></td>
       <td><%= post.comments.count %></td>
        </tr>
