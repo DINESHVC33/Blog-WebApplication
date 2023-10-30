@@ -5,8 +5,10 @@
 <table>
   <thead>
   <tr>
-    <th>Title</th>
+    <th>Title(topic)</th>
     <th>Content</th>
+    <th>Avg rating</th>
+    <th>Comments count</th>
   </tr>
   </thead>
 
@@ -15,6 +17,8 @@
     <tr>
       <td><%= "#{post.title} ( #{post.topic.title})" %></td>
       <td><%= post.content %></td>
+      <td><%= post.ratings.any? ? "#{post.ratings.average(:value).round(2)}" : "Nil" %></td>
+      <td><%= post.comments.count %></td>
        </tr>
   <% end %>
   </tbody>
