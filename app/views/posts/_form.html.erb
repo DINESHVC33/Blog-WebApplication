@@ -20,6 +20,9 @@
     <%= form.label :content %>
     <%= form.text_area :content %>
   </div>
+
+  <%=render "image_preview", form: form,post: @post%>
+
   <div>
     <%= form.label :tag_ids, "Tags :" %>
     <% Tag.all.each do |tag| %>

@@ -19,6 +19,11 @@
   No tags available for this post.
 <% end %>
 </p>
+<% if @post.image.attached? %>
+  <%= image_tag(@post.image, class: "image") %>
+<%else %>
+  <strong>No images added</strong>
+<% end %>
 <p><strong>Ratings:</strong>
 <ul>
   <% @ratings.each do |star, count| %>
