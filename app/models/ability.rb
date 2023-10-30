@@ -42,6 +42,7 @@ class Ability
       can :destroy, Comment, user_id: user.id
 
       can :mark_as_read, Post
-
+      can :rate, Comment
+      can :ratings, Comment
     end
   end

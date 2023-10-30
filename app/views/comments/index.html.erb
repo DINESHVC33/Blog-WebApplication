@@ -6,6 +6,8 @@
   <thead>
     <tr>
       <th>Content</th>
+      <th>User email</th>
+      <th>Add ratings</th>
       <th colspan="3">Action</th>
     </tr>
   </thead>
@@ -14,6 +16,17 @@
     <% @comments.each do |comment| %>
       <tr>
         <td><%= comment.content %></td>
+        <td><%= comment.user.present? ? comment.user.email : 'No user id' %>
+        <td> <%= form_for([@topic, @post, comment, UserCommentRating.new], url: topic_post_comment_user_comment_ratings_path(comment.post.topic, comment.post, comment), remote: true )do |f| %>
+            <%= f.hidden_field :comment_id, value: comment.id %>
+            <div class="form-group">
+              <%= f.label :value %>
+              <%= f.select :value, (1..5).to_a, prompt: 'Select a rating' %>
+            </div>
+
+            <%= f.submit 'Rate Comment', class: 'btn btn-primary'%>
+          <% end %></td>
+
         <td><%= link_to 'Show', topic_post_comment_path(@topic,@post,comment) %></td>
         <td><%= link_to 'Edit', edit_topic_post_comment_path(@topic, @post, comment) if can?(:edit, comment)&.present? %></td>
         <td><%= button_to 'Destroy', topic_post_comment_path(@topic, @post, comment), method: :delete, data: { confirm: 'Are you sure?' }  %></td>

@@ -1,0 +1,8 @@
+<h1>Ratings for Comment</h1>
+<% @ratings.each do |rating| %>
+  <p><strong>User:</strong> <%= rating.user.email %></p>
+  <p><strong>Comment:</strong> <%= rating.comment.content %></p>
+  <p><strong>Rating:</strong> <%= rating.value %></p>
+  <hr>
+<% end %>
+<%= link_to "Back to Comments", topic_post_comments_path(@topic, @post,@comment), class: "btn btn-outline-secondary" %>

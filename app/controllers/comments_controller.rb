@@ -8,8 +8,12 @@ class CommentsController < ApplicationController
   # GET /comments or /comments.json
   def index
     @comments = @post.comments.all
+    @ratings = Comment.joins(:user_comment_ratings).distinct
   end
-
+  def ratings
+    @comment = Comment.find(params[:id])
+    @ratings = @comment.user_comment_ratings
+  end
   # GET /comments/1 or /comments/1.json
   def show
   end
