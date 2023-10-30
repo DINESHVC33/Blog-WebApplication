@@ -15,8 +15,8 @@
       <tr>
         <td><%= comment.content %></td>
         <td><%= link_to 'Show', topic_post_comment_path(@topic,@post,comment) %></td>
-        <td><%= link_to 'Edit', edit_topic_post_comment_path(@topic,@post,comment) %></td>
-        <td><%= button_to 'Destroy', topic_post_comment_path(@topic,@post,comment), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Edit', edit_topic_post_comment_path(@topic, @post, comment) if can?(:edit, comment)&.present? %></td>
+        <td><%= button_to 'Destroy', topic_post_comment_path(@topic, @post, comment), method: :delete, data: { confirm: 'Are you sure?' }  %></td>
       </tr>
     <% end %>
   </tbody>

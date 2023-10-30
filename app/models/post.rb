@@ -6,4 +6,5 @@ class Post < ApplicationRecord
   paginates_per 3
   has_many :ratings
   has_one_attached :image
+  belongs_to :user
 end

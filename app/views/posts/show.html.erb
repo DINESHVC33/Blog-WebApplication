@@ -9,6 +9,7 @@
   <strong>Content:</strong>
   <%= @post.content %>
 </p>
+<p><strong>user email : </strong><%= @post.user.present? ? @post.user.email : 'No user id' %></p>
 <p>
 <strong>Tags:</strong>
 <% if @post.tags.any? %>
@@ -41,6 +42,6 @@
   <%= f.submit "Submit Rating" %>
 <% end %>
 <br></p>
-<%= link_to 'Edit', edit_topic_post_path(@topic,@post) %> |
+<%= link_to 'Edit', edit_topic_post_path(@topic, @post) if can?(:edit, @post)&.present? %>|
 <%= link_to 'show comments',topic_post_comments_path(@topic,@post) %> |
 <%= link_to 'Back', topic_posts_path(@topic) %>

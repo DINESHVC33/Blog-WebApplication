@@ -1,4 +1,6 @@
 class CommentsController < ApplicationController
+
+  load_and_authorize_resource
   before_action :set_topic
   before_action :set_post
   before_action :set_comment, only: %i[ show edit update destroy ]
@@ -24,7 +26,7 @@ class CommentsController < ApplicationController
   # POST /comments or /comments.json
   def create
     @comment = @post.comments.build(comment_params)
-
+    @comment.user =current_user
     respond_to do |format|
       if @comment.save
         format.html { redirect_to topic_post_comments_url(@topic, @post), notice: "Comment was successfully created." }

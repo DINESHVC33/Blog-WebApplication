@@ -19,8 +19,9 @@
         <td><%= post.content %></td>
         <td><%= post.topic.title %></td>
         <td><%= link_to 'Show',topic_post_path(@topic,post) %></td>
-        <td><%= link_to 'Edit', edit_topic_post_path(@topic,post) %></td>
+        <td><%= link_to 'Edit', edit_topic_post_path(@topic,post) if can?(:edit, post)&.present? %></td>
         <td><%= button_to 'Destroy',topic_post_path(@topic,post)  , method: :delete, data: { confirm: 'Are you sure?' } %></td>
+
       </tr>
     <% end %>
   </tbody>

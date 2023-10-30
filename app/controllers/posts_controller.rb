@@ -1,6 +1,9 @@
 class PostsController < ApplicationController
+
   before_action :set_post, only: %i[ show edit update destroy ]
   before_action :set_topic , except: :all_posts
+  include CanCan::ControllerAdditions
+  load_and_authorize_resource
   # GET /posts or /posts.json
   def index
     @posts = @topic.posts.all
@@ -25,7 +28,7 @@ class PostsController < ApplicationController
   # POST /posts or /posts.json
   def create
     @post = @topic.posts.build(post_params)
-
+    @post.user = current_user
     respond_to do |format|
       if @post.save
         format.html { redirect_to topic_posts_path(@topic, @post), notice: "Post was successfully created." }
@@ -53,6 +56,7 @@ class PostsController < ApplicationController
   # DELETE /posts/1 or /posts/1.json
   def destroy
     @post.tags.clear
+    @post.ratings.destroy_all
     @post.destroy
 
     respond_to do |format|
